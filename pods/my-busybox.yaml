@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod3
+  name: my-busybox
   namespace: city-tech
   labels:
     app: demo
