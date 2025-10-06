@@ -11,6 +11,6 @@ spec:
         spec:
           containers:
           - name: hello
-          image: busybox
-          command: ["/bin/sh", "-c", "date; echo Hello from CronJob!"]
-        restartPolicy: OnFailure
+            image: busybox
+            command: ["/bin/sh", "-c", "date; echo Hello from CronJob!"]
+          restartPolicy: OnFailure
