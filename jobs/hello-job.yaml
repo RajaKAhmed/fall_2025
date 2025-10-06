@@ -11,4 +11,4 @@ spec:
       - name: hello
         image: busybox
         command: ["/bin/sh", "-c", "echo Hello from Job!"]
-    restartPolicy: Never
+      restartPolicy: Never
