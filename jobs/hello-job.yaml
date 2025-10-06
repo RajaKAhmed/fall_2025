@@ -4,7 +4,6 @@ metadata:
   namespace: cuny-jobs
   name: hello-job
 spec:
-  backoffLimit: 3
   template:
     spec:
       containers:
@@ -12,3 +11,4 @@ spec:
         image: busybox
         command: ["/bin/sh", "-c", "echo Hello from Job!"]
       restartPolicy: Never
+  backoffLimit: 3
