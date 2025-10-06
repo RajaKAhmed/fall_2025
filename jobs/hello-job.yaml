@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-namespace: cuny-jobs
-name: hello-job
+  namespace: cuny-jobs
+  name: hello-job
 spec:
-template:
-spec:
-containers:
-- name: hello
-image: busybox
-command: ["/bin/sh", "-c", "echo Hello from Job!"]
-restartPolicy: Never
-backoffLimit: 3
+  backoffLimit: 3
+  template:
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["/bin/sh", "-c", "echo Hello from Job!"]
+    restartPolicy: Never
