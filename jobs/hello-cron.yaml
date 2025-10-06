@@ -1,16 +1,16 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-namespace: cuny-jobs
-name: hello-cron
+  namespace: cuny-jobs
+  name: hello-cron
 spec:
-schedule: "*/2 * * * *" # every 2 minutes
-jobTemplate:
-spec:
-template:
-spec:
-containers:
-- name: hello
-image: busybox
-command: ["/bin/sh", "-c", "date; echo Hello from CronJob!"]
-restartPolicy: OnFailure
+  schedule: "*/2 * * * *" # every 2 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+          image: busybox
+          command: ["/bin/sh", "-c", "date; echo Hello from CronJob!"]
+        restartPolicy: OnFailure
