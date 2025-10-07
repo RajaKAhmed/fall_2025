@@ -1,0 +1,48 @@
+# PersistentVolume (cluster-scoped, no namespace)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-demo
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data
+
+---
+
+# PersistentVolumeClaim (namespaced)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-demo
+  namespace: cuny-volumes
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+
+---
+
+# Pod using PVC (namespaced)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-pod
+  namespace: cuny-volumes
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["/bin/sh", "-c", "echo 'Hello PVC' > /data/hello.txt; sleep 3600"]
+    volumeMounts:
+    - name: pvc-storage
+      mountPath: /data
+  volumes:
+  - name: pvc-storage
+    persistentVolumeClaim:
+      claimName: pvc-demo

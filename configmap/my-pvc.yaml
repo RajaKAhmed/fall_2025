@@ -1,0 +1,49 @@
+# Create a ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: cuny-volumes
+data:
+  APP_COLOR: blue
+  APP_MODE: production
+
+---
+
+# Create a Secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+  namespace: cuny-volumes
+type: Opaque
+data:
+  DB_USER: YWRtaW4=        # base64 for 'admin'
+  DB_PASS: c3VwZXJzZWNyZXQ= # base64 for 'supersecret'
+
+---
+
+# Pod mounting both
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-secret-pod
+  namespace: cuny-volumes
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["/bin/sh", "-c", "cat /config/APP_COLOR; cat /secret/DB_USER; sleep 3600"]
+    volumeMounts:
+    - name: config-volume
+      mountPath: /config
+    - name: secret-volume
+      mountPath: /secret
+      readOnly: true
+  volumes:
+  - name: config-volume
+    configMap:
+      name: app-config
+  - name: secret-volume
+    secret:
+      secretName: db-secret
