@@ -7,14 +7,14 @@ spec:
   containers:
   - name: writer
     image: busybox
-    command: ["/bin/sh", "-c", "echo Hello from writer > /data/message.txt; sleep 3600"]
+    command: ["/bin/sh", "-c", "echo 'Hello from writer' | tee /data/message.txt >&2; sleep 3600"]
     volumeMounts:
     - name: shared-storage
       mountPath: /data
 
   - name: reader
     image: busybox
-    command: ["/bin/sh", "-c", "cat /data/message.txt; sleep 3600"]
+    command: ["/bin/sh", "-c", "echo 'Reader sees:'; cat /data/message.txt | tee >&2; sleep 3600"]
     volumeMounts:
     - name: shared-storage
       mountPath: /data
