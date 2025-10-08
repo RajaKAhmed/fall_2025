@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: multicon-pods
+  name: my-adapter-pod
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["/bin/sh", "-c", "echo '{\"temperature\":25}' > /data/input.json; sleep 3600"]
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+
+  - name: adapter
+    image: busybox
+    command: ["/bin/sh", "-c", "cat /data/input.json | sed 's/25/77/' > /data/output.json; sleep 3600"]
+    volumeMounts:
+    - name: shared-data
+      mountPath: /data
+
+  volumes:
+  - name: shared-data
+    emptyDir: {}
+

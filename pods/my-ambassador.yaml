@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: multicon-pods
+  name: my-ambassador-pod
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["/bin/sh", "-c", "wget -qO- localhost:8080; sleep 3600"]
+
+  - name: ambassador
+    image: nginx
+    ports:
+    - containerPort: 8080
+    env:
+    - name: TARGET_URL
+      value: "https://example.com"
+
