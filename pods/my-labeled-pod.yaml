@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  namespace: labels-ns
   name: labeled-pod
   labels:
     app: web
