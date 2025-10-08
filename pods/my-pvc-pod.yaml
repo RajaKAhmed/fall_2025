@@ -1,0 +1,18 @@
+# Pod using PVC (namespaced)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-pod
+  namespace: cuny-volumes
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["/bin/sh", "-c", "echo 'Hello PVC' > /data/hello.txt; sleep 3600"]
+    volumeMounts:
+    - name: pvc-storage
+      mountPath: /data
+  volumes:
+  - name: pvc-storage
+    persistentVolumeClaim:
+      claimName: pvc-demo
