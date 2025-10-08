@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotated-pod
+  namespace: labels-ns
+  annotations:
+    description: "This pod is for testing annotations"
+    contact: "prof.ahmed@citytech.edu"
+spec:
+  containers:
+  - name: nginx
+    image: nginx
