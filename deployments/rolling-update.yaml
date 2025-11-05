@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cuny-deployments
+  name: dep-recreate
+  labels:
+    app: nginx
+
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 2
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.29.0 #Upgrade to 6.0 --> 6.0.16 --> 6.2.
