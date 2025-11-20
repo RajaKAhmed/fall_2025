@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-cst
+  namespace: cuny-docker
+  labels:
+    app: hello-cst
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-cst
+
+  template:
+    metadata:
+      labels:
+        app: hello-cst
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: hello-cst
+          image: ghcr.io/rajakahmed/hello-cst:1.0
+          ports:
+            - containerPort: 5000
+              name: http

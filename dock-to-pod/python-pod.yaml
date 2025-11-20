@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: cuny-docker
+  name: hello-cst
+  labels:
+    app: hello-cst
+
+spec:
+ containers:
+  - name: hello-cst
+    image: ghcr.io/rajakahmed/hello-cst:1.0
+    ports:
+    - containerPort: 5000
+      name: http
